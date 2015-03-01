@@ -116,6 +116,7 @@
     foreach ($pdo->query($sql) as $message) {
       $color     = base_convert(substr(md5($message['pseudo']), -4), 16, 10) % 12 + 1;
       $published = strtotime($message['published']);
+
 ?>
         <article class="message c<?php echo $color;?>">
           <header>
@@ -124,7 +125,9 @@
               <?php echo date('\l\e d/m/Y \à H:i:s', $published); ?>
             </time>
           </header>
-          <p><?php echo nl2br(strip_tags($message['message'], '<b><i><u>')); ?></p>
+          <p><?php echo nl2br(str_replace(['[g]', '[i]', '[s]', '[/g]', '[/i]', '[/s]'],
+                                          ['<b>', '<i>', '<u>', '</b>', '</i>', '</u>'],
+                                          strip_tags($message['message']))); ?></p>
         </article>
 <?php
     }

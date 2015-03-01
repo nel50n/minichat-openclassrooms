@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
 --
 
 INSERT INTO `messages` (`id`, `pseudo`, `message`, `published`) VALUES
-(1, 'nel50n', 'Bonjour et bienvenue sur mon mini-chat !\n\nVous pouvez utiliser les balises [g]...[/g], [i]...[/i] et [s]...[/s] pour mettre <b>en gras</b>, en <i>italiques</i> ou bien <u>souligner</u> votre texte, les autres balises ne seront pas interprétées.\n\nBonne correction !', '2015-02-26 08:16:34');
+(1, 'nel50n', 'Bonjour et bienvenue sur mon mini-chat !\n\nVous pouvez utiliser les balises &#91;g&#93;...&#91;/g&#93;, &#91;i&#93;...&#91;/i&#93; et &#91;s&#93;...&#91;/s&#93; pour mettre [g]en gras[/g], en [i]italiques[/i] ou bien [s]souligner[/s] votre texte, les autres balises ne seront pas interprétées.\n\nBonne correction !', '2015-02-26 08:16:34');
 
 --
 -- Index pour les tables exportées
