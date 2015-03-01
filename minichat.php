@@ -8,6 +8,12 @@
   $database = "minichat";
   $table    = "messages";
 
+  // Nombre de messages par page
+  $count    = 6;
+
+  // Session pour le pseudo et les erreurs de validation
+  session_start();
+
   // ---------------------------------------------------------------------------
   // On se connecte à MySQL via PDO
   try {
@@ -39,6 +45,12 @@
   $pdo->exec("USE `$database`;");
 
   // ---------------------------------------------------------------------------
+  // Récupération des paramètres utiles
+  $pseudo   = isset($_SESSION['pseudo']) ? $_SESSION['pseudo'] : '';
+
+  $nbmsg    = $pdo->query("SELECT COUNT(*) FROM `$table`")->fetchColumn();
+  $lastpage = ceil($nbmsg/$count);
+  $page     = isset($_GET['page']) ? max(1, min(intval($_GET['page']), $lastpage)) : 1;
 ?>
 
 <!DOCTYPE html>
@@ -71,15 +83,23 @@
     <!-- Formulaire -->
     <section id="formulaire">
     <!-- Message d'erreur -->
+<?php if (isset($_SESSION['error'])) { ?>
+      <div class="error">
+<?php   echo htmlspecialchars($_SESSION['error']);
+        unset($_SESSION['error']); ?>
+      </div>
+<?php } ?>
       <form action="minichat_post.php" method="post">
         <ul>
           <li>
             <label for="pseudo">Pseudo</label>
-            <input type="text" name="pseudo" id="pseudo" required placeholder="Pseudo" autofocus>
+            <input type="text" name="pseudo" id="pseudo" required placeholder="Pseudo"
+             <?php echo empty($pseudo) ? 'autofocus' : "value=\"$pseudo\""; ?>>
           </li>
           <li>
             <label for="message">Message</label>
-            <textarea name="message" id="message" rows="3" placeholder="Message"></textarea>
+            <textarea name="message" id="message" rows="3" placeholder="Message"
+             <?php if (!empty($pseudo)) echo 'autofocus'; ?>></textarea>
           </li>
         </ul>
         <button type="submit" class="btn">Envoyer</button>
@@ -93,30 +113,44 @@
         <a href="?page=1" class="btn">Rafraîchir</a>
       </header>
       <div id="list">
-        <article class="message c1">
+
+<?php
+  // ---------------------------------------------------------------------------
+  // Liste chronologique inversée des messages de la page en cours + pagination
+  $offset = ($page-1) * $count;
+  $sql = "SELECT * FROM `$table` ORDER BY `published` DESC LIMIT $offset, $count";
+
+  if ($nbmsg == 0) {
+    echo '<p class="empty">(Aucun message)</p>';
+  } else {
+    foreach ($pdo->query($sql) as $message) {
+      $color     = base_convert(substr(md5($message['pseudo']), -4), 16, 10) % 12 + 1;
+      $published = strtotime($message['published']);
+?>
+        <article class="message c<?php echo $color;?>">
           <header>
-            <h4>Someone</h4>
-            <time>le 01/03/2015 à 18:27:02</time>
+            <h4><?php echo strip_tags($message['pseudo']); ?></h4>
+            <time datetime="<?php echo $message['published']; ?>">
+              <?php echo date('\l\e d/m/Y \à H:i:s', $published); ?>
+            </time>
           </header>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet dolor vel.</p>
+          <p><?php echo nl2br(strip_tags($message['message'], '<b><i><u>')); ?></p>
         </article>
-        <article class="message c2">
-          <header>
-            <h4>Another One</h4>
-            <time>le 01/03/2015 à 18:27:02</time>
-          </header>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet dolor vel.</p>
-        </article>
-        <article class="message c1">
-          <header>
-            <h4>Someone</h4>
-            <time>le 01/03/2015 à 18:27:02</time>
-          </header>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet dolor vel.</p>
-        </article>
+<?php
+    }
+  }
+?>
       </div>
       <footer>
-        <p>Page 1</p>
+        <p>
+          <a href="?page=<?php echo $page-1; ?>" class="prev
+            <?php echo ($page === 1) ? 'invisible' : ''; ?>">&lt;</a>
+
+          Page <?php echo $page ?>
+
+          <a href="?page=<?php echo $page+1; ?>" class="next
+            <?php echo ($page >= $lastpage) ? 'invisible' : ''; ?>">&gt;</a>
+        </p>
       </footer>
     </section>
   </div>
