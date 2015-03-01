@@ -1,3 +1,46 @@
+<?php
+  // Paramètres de connection à MySQL
+  $host     = "localhost";
+  $user     = "root";
+  $password = "";
+
+  // Noms de la base et de la table à utiliser
+  $database = "minichat";
+  $table    = "messages";
+
+  // ---------------------------------------------------------------------------
+  // On se connecte à MySQL via PDO
+  try {
+    $pdo = new PDO("mysql:host=$host;charset=utf8", $user, $password);
+  } catch (PDOException $e) {
+    die($e->getMessage());
+  }
+
+  // On vérifie l'existence de la base de donnée et de la table
+  try {
+    $dbexist = $pdo->query("SELECT 1 FROM `$database`.`$table` LIMIT 1");
+  } catch (PDOException $e) {
+    $dbexist = false;
+  }
+
+  // Exécution du script d'initialisation de la base si besoin
+  if (!$dbexist) {
+    try {
+      $sql = str_replace(['minichat', 'messages'],
+                         [$database,  $table],
+                file_get_contents('minichat.sql'));
+      $pdo->exec($sql);
+    } catch (PDOException $e) {
+      die($e->getMessage());
+    }
+  }
+
+  // On définit la base active
+  $pdo->exec("USE `$database`;");
+
+  // ---------------------------------------------------------------------------
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
