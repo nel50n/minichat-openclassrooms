@@ -1,17 +1,7 @@
 <?php
-  // Paramètres de connection à MySQL
-  $host     = "localhost";
-  $user     = "root";
-  $password = "";
-
-  // Noms de la base et de la table à utiliser
-  $database = "minichat";
-  $table    = "messages";
-
-  // Nombre de messages par page
-  $count    = 6;
-
-  // Session pour le pseudo et les erreurs de validation
+  // N'hésitez pas à éditer le fichier de configuration pour adapter
+  // le mini-chat à votre environnement :
+  include 'config.php';
   session_start();
 
   // ---------------------------------------------------------------------------
