@@ -103,6 +103,8 @@ html {
 }
 
 body {
+  background: url(../img/bg.jpg) #e8ceb0;
+
   padding: 20px;
 
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -118,6 +120,331 @@ body {
   margin: 0 auto;
   width: 660px;
 }
+
+.wrapper > header, .wrapper > section {
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid;
+  border-bottom: 2px solid;
+  border-color: #ccc;
+  border-color: rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+
+  background: url(../img/bg-glass.jpg) #efddc8 fixed;
+
+  padding: 10px;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+  margin-bottom: 20px;
+}
+
+
+/* Header styles */
+
+.wrapper > header h1 {
+  margin: -10px;
+  padding: 28px 0;
+
+  background-color: rgba(255, 255, 255, 0.3);
+
+  text-align: center;
+  font-weight: 700;
+}
+
+.wrapper > header h1 small {
+  color: #888;
+  font-weight: 600;
+}
+
+
+/* Form styles */
+
+.error {
+  position: absolute;
+
+  right: 10px;
+
+  padding: 4px;
+  background-color: #d66;
+
+  border-radius: 4px;
+
+  text-align: center;
+  font-weight: 600;
+
+  max-width: 120px;
+}
+
+form ul {
+  margin: 0;
+  padding: 0;
+}
+
+form ul li {
+  list-style: none;
+  margin: 0 0 4px 0;
+
+  line-height: 20px;
+}
+
+form ul li * {
+  vertical-align: top;
+}
+
+form ul li:last-child  {
+  margin-bottom: 0;
+}
+
+form label {
+  display: inline-block;
+  padding-top: 6px;
+
+  font-weight: 700;
+
+  width: 100px;
+}
+
+form input,
+form textarea {
+  background-color: #ddd;
+  background-color: rgba(255, 255, 255, 0.5);
+
+  border: 2px solid;
+  border-color: #ccc;
+  border-color: rgba(255, 255, 255, 0.4);
+  border-radius: 3px;
+
+  padding: 4px;
+
+  min-width: 400px;
+}
+
+form input:focus,
+form textarea:focus {
+  outline: none;
+
+  background-color: #eee;
+  background-color: rgba(255, 255, 255, 0.7);
+
+  border-color: #fff;
+}
+
+form textarea {
+  resize: none;
+}
+
+.btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+
+  background-color: #ddd;
+  background-color: rgba(255, 255, 255, 0.5);
+
+  border: 2px solid;
+  border-color: #ccc;
+  border-color: rgba(255, 255, 255, 0.4);
+  border-radius: 16px;
+
+  padding: 4px 10px;
+
+  font-weight: 600;
+  color: #666;
+  text-decoration: none;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active {
+  outline: none;
+
+  background-color: #eee;
+  background-color: rgba(255, 255, 255, 0.7);
+
+  border-color: #fff;
+
+  color: #222;
+}
+
+.btn:hover,
+.btn:focus {
+  bottom: 11px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+  bottom: 10px;
+  box-shadow: none;
+}
+
+
+/* Messages list styles */
+
+#messages > header, #messages > footer {
+  margin: -10px;
+  padding: 10px;
+
+  border: 0px solid rgba(255, 255, 255, 0.4);
+
+  background-color: rgba(255, 255, 255, 0.3);
+
+  color: #888;
+  text-align: center;
+}
+
+#messages > header {
+  position: relative;
+  margin-bottom: 12px;
+  border-bottom-width: 1px;
+}
+
+#messages > footer {
+  margin-top: 12px;
+  border-top-width: 1px;
+}
+
+#messages > footer p {
+  margin: 0;
+  cursor: default;
+}
+
+#messages > footer a {
+  display: inline-block;
+
+  margin: 0 8px;
+
+  border-radius: 4px;
+
+  text-decoration: none;
+  text-align: center;
+  color: #444;
+
+  width: 1.5em;
+}
+
+#messages > footer a:hover,
+#messages > footer a:focus {
+  background-color: #444;
+  color: #ddd;
+}
+
+#messages > header h2 {
+  margin: 0;
+  font-weight: 600;
+}
+
+#messages > #list {
+  margin: -12px;
+  padding: 12px;
+
+  min-height: 96px;
+  height: calc(100vh - 405px);
+  max-height: calc(100vh - 405px);
+
+  overflow: auto;
+}
+
+#messages .empty {
+  color: #888;
+  font-weight: 600;
+  text-align: center;
+}
+
+.message {
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.message header {
+  margin: -4px;
+  padding: 4px 8px;
+
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 3px
+}
+
+.message h4 {
+  display: inline-block;
+  margin: 0;
+  margin-right: 8px;
+
+  font-size: 1.2em;
+  font-weight: 600;
+
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+
+  vertical-align: middle;
+
+  max-width: 75%;
+  max-width: calc(100% - 155px);
+}
+
+.c1 h4 {
+  color: #9b59b6;
+}
+
+.c2 h4 {
+  color: #3498db;
+}
+
+.c3 h4 {
+  color: #2ecc71;
+}
+
+.c4 h4 {
+  color: #e67e22;
+}
+
+.c5 h4 {
+  color: #e74c3c;
+}
+
+.c6 h4 {
+  color: #1abc9c;
+}
+
+.c7 h4 {
+  color: #8e44ad;
+}
+
+.c8 h4 {
+  color: #f39c12;
+}
+
+.c9 h4 {
+  color: #c0392b;
+}
+
+.c10 h4 {
+  color: #d35400;
+}
+
+.c11 h4 {
+  color: #2980b9;
+}
+
+.c12 h4 {
+  color: #27ae60;
+}
+
+.message time {
+  padding-top: 4px;
+
+  font-size: 80%;
+  color: #666;
+
+  vertical-align: middle;
+}
+
+.message p {
+  margin-bottom: 0;
+}
+
 
 /* ==========================================================================
    Helper classes
